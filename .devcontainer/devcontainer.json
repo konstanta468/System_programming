@@ -1,0 +1,20 @@
+{
+    "name": "Ubuntu",
+    "image": "mcr.microsoft.com/devcontainers/base:resolute",
+    "remoteUser": "vscode",
+    "containerUser": "vscode",
+    "runArgs": [
+        "--platform", "linux/amd64"
+    ],
+
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "flatassembler.fasm",
+                "ms-vscode.cpptools"
+            ]
+        }
+    },
+
+    "postCreateCommand": "sudo apt update && sudo apt install -y build-essential gdb fasm mc"
+}
