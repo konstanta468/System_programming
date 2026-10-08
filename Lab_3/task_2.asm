@@ -34,7 +34,7 @@ _start:
 
 
 exit:
-    mov rax,60
+    mov rax, 60
     xor rdi, rdi
     syscall
 
