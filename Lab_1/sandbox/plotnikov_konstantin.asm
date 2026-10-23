@@ -4,6 +4,7 @@ public _start
 name db "Konstantin", 0xA, 0
 surname db "Plotnikov", 0xA, 0
 patronymic db "Vladimirovich", 0xA, 0
+newline db 0xA
 
 _start:
     mov eax, 4
@@ -12,11 +13,36 @@ _start:
     mov edx, 10
     int 0x80
 
+    mov esi, name
+    .loop:
+    cmp byte [esi], 0xA
+    je .end
+    inc eax
+
+    mov eax, 1
+    mov ebx, 1
+    mov ecx, esi
+    mov edx, 1
+    int 0x80
+
+    mov eax, 1
+    mov ebx, 1
+    mov ecx, newline
+    mov edx, 1
+    int 0x80
+
+    jmp .loop
+    .end:
+
+
+    .loop1:
     mov eax, 4
     mov ebx, 1
     mov ecx, name
-    mov edx, 11
+    mov edx, 10
     int 0x80
+
+
 
     mov eax, 4
     mov ebx, 1
