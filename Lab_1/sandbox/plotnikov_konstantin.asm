@@ -17,32 +17,24 @@ _start:
     .loop:
     cmp byte [esi], 0xA
     je .end
-    inc eax
 
-    mov eax, 1
+    mov eax, 4
     mov ebx, 1
     mov ecx, esi
     mov edx, 1
     int 0x80
 
-    mov eax, 1
+    mov eax, 4
     mov ebx, 1
     mov ecx, newline
     mov edx, 1
     int 0x80
 
+
+    inc esi
+
     jmp .loop
     .end:
-
-
-    .loop1:
-    mov eax, 4
-    mov ebx, 1
-    mov ecx, name
-    mov edx, 10
-    int 0x80
-
-
 
     mov eax, 4
     mov ebx, 1
