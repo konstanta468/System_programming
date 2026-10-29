@@ -1,11 +1,15 @@
 
+section ".data" writeable
+    urandom_path db "/dev/urandom", 0
+
 section ".bss" writeable
-    buffer db 255
+    buffer rb 255
 
 section ".text" executable
 
 ;input rax - intager
 print_int:
+    push r10
     push rsi
     push rdi
     push rdx
@@ -19,7 +23,7 @@ print_int:
     pop rdx
     pop rdi
     pop rsi
-
+    pop r10
     ret
 
 ;The function realizates user input from the keyboard
@@ -104,7 +108,7 @@ ATOI:
     pop rsi
     ret
 
-; input rax - intager
+; input rax - integer
 ; otput:
 ; rax - buffer
 ; rdx - len of buffer
@@ -174,4 +178,43 @@ reverse_str:
         jmp @b
         @@:
     pop rax
+    ret
+
+;The function generates a random 64-bit number 
+;output: rax - random number (0 if could not be read)
+random:
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r11
+    push r8
+    push 0 
+
+    mov rax, 2 ; open
+    mov rdi, urandom_path
+    xor rsi, rsi 
+    syscall
+    cmp rax, 0
+    jl @f
+    mov r8, rax 
+
+    mov rax, 0 
+    mov rdi, r8
+    mov rsi, rsp
+    mov rdx, 8
+    syscall
+
+    mov rax, 3 
+    mov rdi, r8
+    syscall
+    @@:
+
+    pop rax
+    pop r8
+    pop r11
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
     ret
