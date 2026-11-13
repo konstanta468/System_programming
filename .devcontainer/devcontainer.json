@@ -4,7 +4,7 @@
     "remoteUser": "vscode",
     "containerUser": "vscode",
     "runArgs": [
-        "--platform", "linux/amd64"
+        "--platform", "linux/amd64", "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined"
     ],
 
     "customizations": {
@@ -16,5 +16,5 @@
         }
     },
 
-    "postCreateCommand": "sudo apt update && sudo apt install -y build-essential gdb fasm mc"
+    "postCreateCommand": "sudo apt update && sudo apt install -y build-essential gdb fasm mc libncurses-dev"
 }

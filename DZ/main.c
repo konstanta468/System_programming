@@ -7,6 +7,7 @@ void fill_rabdom_queue(unsigned long, long int);
 void delete_even_queue(unsigned long);
 unsigned long get_list_odd_queue(unsigned long);
 unsigned long ending_one_queue(unsigned long);
+void free_spase(unsigned long);
 
 int main(){
     unsigned long random_q = create_queue();
@@ -31,5 +32,9 @@ int main(){
     printf("список после удаления чётных чисел\n");
     delete_even_queue(q);
     print_queue(q);   // для -1 2 3 4 ожидается: -1, 3
+
+    free_spase(q);
+    free_spase(odd_q);
+    free_spase(random_q);
     return 0;
 }

@@ -39,7 +39,7 @@ _start:
         jl .loop
     
     cmp r8, 0
-    jge .yes
+    jg .yes
 
     mov rax, 0
     call print_int

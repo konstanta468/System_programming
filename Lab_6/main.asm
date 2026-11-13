@@ -28,7 +28,8 @@ section '.bss' writeable
 
 section '.data' writeable
     firstloop db 0
-    delay dd 5
+    delay dd 1
+    flag db 1
 
 section '.text' executable
 
@@ -43,12 +44,12 @@ _start:
 
     mov edi, 1       
     mov esi, 0    
-    mov edx, 1    
+    mov edx, 4   
     call init_pair
 
     mov edi, 2    
     mov esi, 0    
-    mov edx, 2  
+    mov edx, 5  
     call init_pair
 
     mov rdi, [stdscr]
@@ -70,11 +71,11 @@ _start:
 
 .draw:
     call getch
-    cmp eax, 'r'
+    cmp eax, 'x'
     je .exit
-    cmp eax, 'h'
+    cmp eax, 'r'
     jne @f
-    add dword [delay], 5
+    call speed
     @@:
 
     mov edi, [y]
@@ -128,3 +129,23 @@ _start:
     call endwin
     xor edi, edi
     call exit
+
+speed:
+    cmp dword[delay], 50
+    jl .notswitch
+        neg [flag]
+    cmp dword[delay], 5
+        neg [flag]
+    jl .notswitch
+    
+    .notswitch:
+
+    cmp byte[delay], 1
+    jne .de
+        add byte[delay], 4
+        ret
+    .de: 
+        add byte[delay], -4
+        ret
+
+

@@ -12,6 +12,7 @@ public fill_rabdom_queue
 public ending_one_queue
 public get_list_odd_queue
 public delete_even_queue
+public free_spase
 
 include '../MyLibrary.asm'
 
@@ -274,6 +275,15 @@ inc_offset:
     jl @f ; если смещение равно вместимости, то переносим его в начало памяти
     xor r12, r12
     @@:
+    ret
+
+free_spase:
+    push rax
+    mov rsi, 4096
+    mov rax, 11
+    syscall
+
+    pop rax
     ret
 
 error:

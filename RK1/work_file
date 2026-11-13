@@ -1,0 +1,10 @@
+touch Task_1 Task_2 Task_3
+echo "Содержимое первого файла" > Task_1
+echo "Содержимое второго файла" > Task_2
+echo "Содержимое третьего файла" > Task_3
+tar -cf MyArch.tar Task_1 Task_2 Task_3
+gzip MyArch.tar
+ls > List
+gunzip MyArch.tar.gz
+tar -rf MyArch.tar List
+gzip MyArch.tar
